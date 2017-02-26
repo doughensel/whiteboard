@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Whiteboard</title>
+	<style>
+		html, body, *{
+			font-family: Arial;
+			font-size: 18px;
+			color: #1565C0;
+		}
+		input[type="text"]{
+			border: solid 2px #1565C0;
+			color: #333333;
+		}
+		button{
+			background-color: #1565C0;
+			color: #FFFFFF;
+			border: solid 3px #1565C0;
+			border-radius: 5px;
+			padding: 3px 8px 0px 8px;
+		}
+			button:hover{
+				background-color: #448AFF;
+				border-color: #448AFF;
+			}
+			button:active{
+				color: #1565C0;
+				background-color: transparent;
+			}
+		button.close{
+			background-color: #E53935;
+		    border-color: #E53935;
+		    border-radius: 0px;
+		    font-size: 12px;
+		    padding: 4px 7px 3px 7px;
+		    float: right;
+		    margin: -15px;
+		}
+			button.close:hover{
+				background-color: #EF5350;
+				border-color: #EF5350;
+			}
+			button.close:active{
+				color: #E53935;
+				background-color: transparent;
+			}
+		button.save{
+			padding-top: 1px;
+		    border-radius: 0 5px 5px 0;
+		    margin-left: -6px;
+		    font-size: 16px;
+		    border-width: 4px;
+		}
+		#globalAdd{
+			position: fixed;
+			right: 10px;
+			top: 10px;
+			font-size: 20px;
+		}
+		.modal{
+			position: absolute;
+			top: -100%;
+			left: -100%;
+			box-shadow: 0px 5px 15px rgba(21, 101, 192, 0.45);
+			padding: 15px;
+			background-color: #E3F2FD;
+			border: solid 2px #1565C0;
+		}
+		.modal.active{
+			position: fixed;
+			top: 42px;
+			left: 42%;
+		}
+		#output{
+			position: fixed;
+			height: 100%;
+			width: 100%;
+		}
+	</style>
+</head>
+<body>
+
+<div id="output">
+
+</div>
+
+<button type="button" id="globalAdd" onclick="javascript:node.start();" >+</button>
+<div id="nodeModal" class="modal">
+	<button type="button" class="close" onclick="javascript:removeClass('active', 'nodeModal');">X</button>
+	<br />
+	<label for="nodeTitle">Node Title?</label>
+	<br />
+	<input type="text" id="nodeTitle" />
+	<button type="button" class="save" onclick="javascript:node.create();">create</button>
+</div>
+
+<script type="text/javascript">
+
+// HELPER FUNCTIONS
+function removeClass( name, elem ){	
+	elem = getElem( elem );
+	if( elem ){
+		var classes = elem.className.split(' ');
+		function remove(){
+			var i = classes.indexOf(name);
+			if( i >= 0 ){
+				classes.splice( i, 1 );
+				remove();
+			}
+		}
+		remove();
+		elem.className = classes.join(' ');
+	}
+	return true;
+}
+function addClass( name, elem ){
+	elem = getElem( elem );
+	if( elem ){
+		var classes = elem.className.split(' ');
+		var i = classes.indexOf( name );
+		if( i < 0 ){
+			classes.push( name );
+		}
+		elem.className = classes.join(' ');
+	}
+	return true;
+}
+function getElem( name ){
+	if( (typeof name).toUpperCase() === 'STRING' ){
+		return document.getElementById(name) || undefined;
+	}
+	if( (typeof name).toUpperCase() === 'OBJECT' ){
+		return name;
+	}
+	return name || undefined;
+}
+
+// DEFINE WORKSPACE
+
+// NODES
+var node = {
+	start  : function(){
+		addClass( 'active', 'nodeModal' );
+		document.getElementById('nodeTitle').focus();		
+	},
+	create : function( level ){
+		
+	}
+};
+
+var data = {};
+
+
+</script>
+
+</body>
+</html>
